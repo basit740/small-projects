@@ -20,9 +20,17 @@ const AdminLayout = ({ children }) => {
 				<Container fluid className='flex-grow-1'>
 					<Row>
 						<Col md={3} lg={2} className='p-0'>
-							<AdminSidebar />
+							<AdminSidebar theme={theme} />
 						</Col>
-						<Col md={9} lg={10} className='admin-content'>
+						<Col
+							md={9}
+							lg={10}
+							className={`admin-content ${
+								theme === 'light'
+									? 'admin-content--light'
+									: 'admin-content--dark'
+							}`}
+						>
 							{children}
 						</Col>
 					</Row>

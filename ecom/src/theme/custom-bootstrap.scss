@@ -5,37 +5,10 @@
 .theme-light {
 	background-color: $light-theme-bg !important;
 	color: $light-theme-text !important;
-
-	a,
-	.nav-link {
-		color: $light-theme-text !important;
-	}
-
-	.bg-primary {
-		background-color: $light-theme-primary !important;
-	}
-	a:active {
-		background-color: $light-theme-primary !important;
-		color: $light-theme-text !important;
-	}
 }
 
 // Dark theme
 .theme-dark {
 	background-color: $dark-theme-bg !important;
 	color: $dark-theme-text !important;
-
-	a,
-	.nav-link {
-		color: $dark-theme-text !important;
-	}
-
-	.bg-primary {
-		background-color: $dark-theme-primary !important;
-	}
-
-	a:active {
-		background-color: $light-theme-primary !important;
-		color: $light-theme-text !important;
-	}
 }

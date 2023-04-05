@@ -3,25 +3,31 @@
 	flex-direction: column;
 	min-height: 100vh;
 }
+.admin-navbar {
+	background-color: #f8f9fa;
+}
 
 .admin-sidebar {
 	position: sticky;
 	top: 0;
 	height: 100vh;
 	overflow-y: auto;
-	background-color: #343a40;
 	/* Background color for the sidebar */
 	padding: 30px 15px;
 }
 
 .admin-content {
-	background-color: #ffffff; /* Background color for the main content */
+	/* background-color: #ffff; */
 }
 
-.admin-sidebar .nav-link {
-	color: #ffffff; /* Update the link color */
+.dark .admin-content {
+	background-color: #222831; /* dark mode */
 }
 
-.admin-sidebar .nav-link:hover {
-	color: #cccccc; /* Update the link hover color */
-}
+/* .admin-sidebar .nav-link {
+	color: #ffffff; 
+} */
+
+/* .admin-sidebar .nav-link:hover {
+	color: #cccccc; 
+} */

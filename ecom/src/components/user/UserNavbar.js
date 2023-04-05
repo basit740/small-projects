@@ -20,6 +20,9 @@ const UserNavbar = () => {
 						<NavLink className='nav-link' to='/user-profile'>
 							User Profile
 						</NavLink>
+						<NavLink className='nav-link' to='/admin/dashboard'>
+							Admin Panel
+						</NavLink>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
