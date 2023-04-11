@@ -18,12 +18,20 @@ import UserProfile from './screens/user/UserProfile.js';
 
 // admin screens
 import Dashboard from './screens/admin/Dashboard';
-import UsersList from './screens/admin/UsersList';
-import OrdersList from './screens/admin/OrdersList';
+import Users from './screens/admin/Users';
+import Orders from './screens/admin/Orders';
+import Products from './screens/admin/Products';
+import Categories from './screens/admin/Categories';
 
 // layouts
 import UserLayout from './components/user/UserLayout';
 import AdminLayout from './components/admin/AdminLayout';
+
+// common screens
+import LoginPage from './screens/common/LoginPage.js';
+
+// Admin protected routes
+import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
 
 const UserRoutes = () => {
 	return (
@@ -40,8 +48,11 @@ const AdminRoutes = () => {
 	return (
 		<Routes>
 			<Route path='/dashboard' element={<Dashboard />} />
-			<Route path='/users' element={<UsersList />} />
-			<Route path='/orders' element={<OrdersList />} />
+			<Route path='/users' element={<Orders />} />
+			<Route path='/orders' element={<Orders />} />
+			<Route path='/products' element={<Products />} />
+			<Route path='/categories' element={<Categories />} />
+
 			{/* Add more admin routes here */}
 		</Routes>
 	);
@@ -58,7 +69,15 @@ const UserApp = () => {
 const AdminApp = () => {
 	return (
 		<AdminLayout>
-			<AdminRoutes />
+			{/* <Outlet /> */}
+			<Routes>
+				<Route path='/dashboard' element={<Dashboard />} />
+				<Route path='/users' element={<Users />} />
+				<Route path='/orders' element={<Orders />} />
+				<Route path='/products' element={<Products />} />
+				<Route path='/categories' element={<Categories />} />
+				{/* Add more admin routes here */}
+			</Routes>
 		</AdminLayout>
 	);
 };
@@ -77,7 +96,11 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path='/*' element={<UserApp />} />
-				<Route path='/admin/*' element={<AdminApp />} />
+				<Route
+					path='/admin/*'
+					element={<ProtectedAdminRoute element={<AdminApp />} />}
+				/>
+				<Route path='/login' element={<LoginPage />} />
 			</Routes>
 		</Router>
 	);

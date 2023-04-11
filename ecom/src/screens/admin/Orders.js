@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 
-const OrdersList = () => {
+const Orders = () => {
 	const orders = [
 		{
 			id: 1,
@@ -30,7 +30,7 @@ const OrdersList = () => {
 		<Container>
 			<Row className='mt-5'>
 				<Col>
-					<h1>Orders List</h1>
+					<h1>Orders Management</h1>
 				</Col>
 			</Row>
 			<Row className='mt-4'>
@@ -69,4 +69,4 @@ const OrdersList = () => {
 	);
 };
 
-export default OrdersList;
+export default Orders;

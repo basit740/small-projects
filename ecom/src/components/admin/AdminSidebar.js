@@ -30,6 +30,9 @@ const AdminSidebar = ({ theme }) => {
 			<LinkContainer to='/admin/products'>
 				<Nav.Link>Products</Nav.Link>
 			</LinkContainer>
+			<LinkContainer to='/admin/categories'>
+				<Nav.Link>Categories</Nav.Link>
+			</LinkContainer>
 		</Nav>
 	);
 };

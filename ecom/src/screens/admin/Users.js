@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 
-const UsersList = () => {
+const Users = () => {
 	const users = [
 		{
 			id: 1,
@@ -27,7 +27,7 @@ const UsersList = () => {
 		<Container>
 			<Row className='mt-5'>
 				<Col>
-					<h1>Users List</h1>
+					<h1>Users Management</h1>
 				</Col>
 			</Row>
 			<Row className='mt-4'>
@@ -64,4 +64,4 @@ const UsersList = () => {
 	);
 };
 
-export default UsersList;
+export default Users;

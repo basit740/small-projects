@@ -7,10 +7,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { ThemeProvider } from './ThemeContext';
 import './theme/custom-bootstrap.scss';
+import { Provider as ReduxProvider } from 'react-redux';
+
+import store from './store/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<ThemeProvider>
-		<App />
-	</ThemeProvider>
+	<ReduxProvider store={store}>
+		<ThemeProvider>
+			<App />
+		</ThemeProvider>
+	</ReduxProvider>
 );

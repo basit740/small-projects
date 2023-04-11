@@ -1,15 +1,18 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
+import { useSelector } from 'react-redux';
+
 const UserProfile = () => {
-	const user = {
-		name: 'John Doe',
-		email: 'john@example.com',
-		address: '123 Main St',
-		city: 'New York',
-		state: 'NY',
-		zip: '10001',
-	};
+	const user = useSelector((state) => state.auth.user);
+	// const user = {
+	// 	name: 'John Doe',
+	// 	email: 'john@example.com',
+	// 	address: '123 Main St',
+	// 	city: 'New York',
+	// 	state: 'NY',
+	// 	zip: '10001',
+	// };
 
 	return (
 		<Container>
@@ -22,12 +25,12 @@ const UserProfile = () => {
 				<Col md={6}>
 					<Card>
 						<Card.Body>
-							<Card.Title>{user.name}</Card.Title>
+							<Card.Title>{user.lastName}</Card.Title>
 							<Card.Text>Email: {user.email}</Card.Text>
-							<Card.Text>Address: {user.address}</Card.Text>
-							<Card.Text>
+							{/* <Card.Text>Address: {user.address}</Card.Text> */}
+							{/* <Card.Text>
 								{user.city}, {user.state} {user.zip}
-							</Card.Text>
+							</Card.Text> */}
 							<Button variant='primary'>Edit Profile</Button>
 						</Card.Body>
 					</Card>

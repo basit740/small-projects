@@ -1,8 +1,25 @@
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { logout } from '../../store/reducers/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserNavbar = () => {
+	const dispatch = useDispatch();
+	const auth = useSelector((state) => state.auth);
+	const navigate = useNavigate();
+
+	const logoutHandler = (e) => {
+		e.preventDefault();
+		dispatch(logout());
+		window.location.href = '/login';
+	};
+
+	const loginHandler = (e) => {
+		e.preventDefault();
+		navigate('/login');
+	};
 	return (
 		<Navbar bg='primary' variant='dark' expand='lg'>
 			<Container>
@@ -13,17 +30,43 @@ const UserNavbar = () => {
 						<NavLink className='nav-link' to='/'>
 							Home
 						</NavLink>
-						{/* <Nav.Link href='/shopping-cart'>Shopping Cart</Nav.Link> */}
 						<NavLink className='nav-link' to='/shopping-cart'>
 							Shopping Cart
 						</NavLink>
-						<NavLink className='nav-link' to='/user-profile'>
-							User Profile
-						</NavLink>
-						<NavLink className='nav-link' to='/admin/dashboard'>
-							Admin Panel
-						</NavLink>
+						{auth.user && (
+							<NavLink className='nav-link' to='/user-profile'>
+								User Profile
+							</NavLink>
+						)}
+						{auth.user && auth.user.role === 'admin' && (
+							<NavLink className='nav-link' to='/admin/dashboard'>
+								Admin Panel
+							</NavLink>
+						)}
 					</Nav>
+					{auth.user && (
+						<Nav className='justify-content-end'>
+							<NavLink
+								className='nav-link'
+								href='/logout'
+								onClick={logoutHandler}
+							>
+								Logout
+							</NavLink>
+						</Nav>
+					)}
+
+					{!auth.user && (
+						<Nav className='justify-content-end'>
+							<NavLink
+								className='nav-link'
+								href='/logout'
+								onClick={loginHandler}
+							>
+								Login
+							</NavLink>
+						</Nav>
+					)}
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
