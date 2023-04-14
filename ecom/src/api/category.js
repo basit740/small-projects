@@ -36,10 +36,9 @@ export function createCategory(categoryData, accessToken) {
 		});
 }
 
-export function updateCategory(id, categoryData, accessToken) {
-	categoryData = { ...categoryData, id };
+export function updateCategory(categoryData, accessToken) {
 	return api
-		.put(`/category/${id}`, categoryData, {
+		.put(`/category/`, categoryData, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},
