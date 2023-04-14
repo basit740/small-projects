@@ -1,8 +1,8 @@
 import api from './api';
 
-export function getProducts() {
+export function getProducts(pageNumber, limit) {
 	return api
-		.get('/product')
+		.get(`/product/?limit=${limit}&page=${pageNumber}`)
 		.then((response) => response.data)
 		.catch((error) => {
 			console.error(error);

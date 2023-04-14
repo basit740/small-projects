@@ -22,6 +22,7 @@ import Users from './screens/admin/Users';
 import Orders from './screens/admin/Orders';
 import Products from './screens/admin/Products';
 import Categories from './screens/admin/Categories';
+import Subcategories from './screens/admin/Subcategories';
 
 // layouts
 import UserLayout from './components/user/UserLayout';
@@ -76,6 +77,7 @@ const AdminApp = () => {
 				<Route path='/orders' element={<Orders />} />
 				<Route path='/products' element={<Products />} />
 				<Route path='/categories' element={<Categories />} />
+				<Route path='/subcategories' element={<Subcategories />} />
 				{/* Add more admin routes here */}
 			</Routes>
 		</AdminLayout>

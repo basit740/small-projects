@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
-
+import { Helmet } from 'react-helmet';
 const Orders = () => {
 	const orders = [
 		{
@@ -28,6 +28,9 @@ const Orders = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<title>Orders | Ecom Admin</title>
+			</Helmet>
 			<Row className='mt-5'>
 				<Col>
 					<h1>Orders Management</h1>

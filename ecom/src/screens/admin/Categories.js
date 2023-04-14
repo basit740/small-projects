@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
-
-import AddCategoryForm from './categories/AddCategoryForm';
 import AddUpdateCategoryModal from './categories/AddUpdateCategoryModal';
-// api actions
+import AddUpdateSubcategoryForm from './subcategories/AddUpdateSubcategoryForm';
+
+import Helmet from 'react-helmet';
 
 import {
 	getCategories,
-	getCategory,
 	createCategory,
 	updateCategory,
 	deleteCategory,
-	getSubcategories,
-	getSubcategoriesByCategoryId,
-	getSubcategory,
 	createSubcategory,
-	updateSubcategory,
-	deleteSubcategory,
 } from '../../api/category';
 
 const Categories = () => {
@@ -27,17 +22,20 @@ const Categories = () => {
 	const [showUpdateModal, setShowUpdateModal] = useState(false);
 	const [categoryToUpdate, setCategoryToUpdate] = useState(null);
 
+	const [showAddSubcategoryModal, setShowAddSubcategoryModal] = useState(false);
+	const [selectedCategory, setSelectedCategory] = useState(null);
+
+	// navigation
+
+	const navigate = useNavigate();
+
 	// helper functions
 
 	const handleCreateCategory = async (newCategory) => {
-		console.log(newCategory);
 		const createdCategory = await createCategory(
 			newCategory,
 			localStorage.getItem('token')
 		);
-
-		//
-		console.log(createdCategory); // because createdCategory is only giving id
 
 		newCategory = { ...newCategory, id: createdCategory.id };
 
@@ -45,13 +43,10 @@ const Categories = () => {
 	};
 
 	const handleUpdateCategory = async (updatedCategory) => {
-		console.log(updatedCategory); // because updatedCategory is only giving id
-
 		const result = await updateCategory(
 			updatedCategory,
 			localStorage.getItem('token')
 		);
-		console.log(result);
 
 		if (result) {
 			setCategories(
@@ -87,6 +82,28 @@ const Categories = () => {
 		setShowUpdateModal(false);
 	};
 
+	const handleShowAddSubcategoryModal = (category) => {
+		setSelectedCategory(category);
+		setShowAddSubcategoryModal(true);
+	};
+
+	const handleCloseAddSubcategoryModal = () => {
+		setSelectedCategory(null);
+		setShowAddSubcategoryModal(false);
+	};
+
+	const handleCreateSubcategory = async (newSubcategory) => {
+		newSubcategory.categoryId = selectedCategory.id;
+		const createdSubcategory = await createSubcategory(
+			newSubcategory,
+			localStorage.getItem('token')
+		);
+
+		if (createdSubcategory.id) {
+			navigate('/admin/subcategories');
+		}
+	};
+
 	useEffect(() => {
 		async function fetchData() {
 			const fetchedCategories = await getCategories();
@@ -100,6 +117,9 @@ const Categories = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<title>Categories | Ecom Admin</title>
+			</Helmet>
 			<Row className='mt-5'>
 				<Col>
 					<h1>Categories Management</h1>
@@ -137,12 +157,22 @@ const Categories = () => {
 											>
 												Update
 											</Button>
+
 											<Button
 												variant='danger'
 												onClick={() => handleDeleteCategory(category.id)}
 												size='sm'
+												style={{ marginRight: '10px' }}
 											>
 												Delete
+											</Button>
+
+											<Button
+												variant='success'
+												onClick={() => handleShowAddSubcategoryModal(category)}
+												size='sm'
+											>
+												Add Subcategory
 											</Button>
 										</td>
 									</tr>
@@ -150,7 +180,6 @@ const Categories = () => {
 							)}
 						</tbody>
 					</Table>
-					<AddCategoryForm onCreateCategory={handleCreateCategory} />
 				</Col>
 			</Row>
 
@@ -168,8 +197,13 @@ const Categories = () => {
 				onSubmit={handleUpdateCategory}
 				categoryToUpdate={categoryToUpdate}
 			/>
+			<AddUpdateSubcategoryForm
+				show={showAddSubcategoryModal}
+				handleClose={handleCloseAddSubcategoryModal}
+				onSubmit={handleCreateSubcategory}
+				categoryId={selectedCategory?.id}
+			/>
 		</Container>
 	);
 };
-
 export default Categories;

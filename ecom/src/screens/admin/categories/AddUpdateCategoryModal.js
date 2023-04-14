@@ -62,12 +62,16 @@ const AddUpdateCategoryModal = ({
 							required
 						/>
 					</Form.Group>
-
-					<Button variant='primary' type='submit' className='mt-3'>
-						{categoryToUpdate ? 'Update' : 'Add'}
-					</Button>
 				</Form>
 			</Modal.Body>
+			<Modal.Footer>
+				<Button variant='secondary' onClick={handleClose} className='mt-3'>
+					Cancel
+				</Button>
+				<Button variant='primary' type='submit' className='mt-3'>
+					{categoryToUpdate ? 'Update' : 'Add'}
+				</Button>
+			</Modal.Footer>
 		</Modal>
 	);
 };

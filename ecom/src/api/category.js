@@ -110,10 +110,9 @@ export function createSubcategory(subcategoryData, accessToken) {
 		});
 }
 
-export function updateSubcategory(id, subcategoryData, accessToken) {
-	subcategoryData = { ...subcategoryData, id };
+export function updateSubcategory(subcategoryData, accessToken) {
 	return api
-		.put(`/subcategory/${id}`, subcategoryData, {
+		.put(`/subcategory/`, subcategoryData, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},

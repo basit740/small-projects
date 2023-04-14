@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
 	const totalOrders = 125;
@@ -8,6 +9,9 @@ const Dashboard = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<title>Dashboard | Ecom Admin</title>
+			</Helmet>
 			<Row className='mt-5'>
 				<Col>
 					<h1>Admin Dashboard</h1>

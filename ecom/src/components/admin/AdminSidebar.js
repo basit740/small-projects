@@ -33,6 +33,9 @@ const AdminSidebar = ({ theme }) => {
 			<LinkContainer to='/admin/categories'>
 				<Nav.Link>Categories</Nav.Link>
 			</LinkContainer>
+			<LinkContainer to='/admin/subcategories'>
+				<Nav.Link>Subcategories</Nav.Link>
+			</LinkContainer>
 		</Nav>
 	);
 };
