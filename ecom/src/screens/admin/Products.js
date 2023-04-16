@@ -58,7 +58,7 @@ const Products = () => {
 
 	const handleUpdateProduct = async (updatedProduct) => {
 		const result = await updateProduct(
-			updatedProduct,
+			updateProduct,
 			localStorage.getItem('token')
 		);
 		if (result) {

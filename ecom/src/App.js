@@ -30,6 +30,7 @@ import AdminLayout from './components/admin/AdminLayout';
 
 // common screens
 import LoginPage from './screens/common/LoginPage.js';
+import RegisterPage from './screens/common/RegisterPage.js';
 
 // Admin protected routes
 import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
@@ -103,6 +104,7 @@ function App() {
 					element={<ProtectedAdminRoute element={<AdminApp />} />}
 				/>
 				<Route path='/login' element={<LoginPage />} />
+				<Route path='/register' element={<RegisterPage />} />
 			</Routes>
 		</Router>
 	);

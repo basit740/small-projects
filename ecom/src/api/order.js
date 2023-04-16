@@ -90,9 +90,11 @@ export function deleteOrder(id, accessToken) {
 
 // Cart Functions
 
+//http://18.209.57.116/order/cart
+
 export function getCartItems(accessToken) {
 	return api
-		.get('/cart', {
+		.get('order/cart', {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},
@@ -132,14 +134,22 @@ export function addToCart(cartItemData, accessToken) {
 		});
 }
 
+//http://18.209.57.116/order/add-to-cart
+
 ///http://18.209.57.116/order/decrement-quantity
-export function decrementItemQty(id, cartItemData, accessToken) {
+
+//http://18.209.57.116/order/decrement-quantity
+export function decrementItemQty(id, accessToken) {
 	return api
-		.put(`/order/decrement-quantity${id}`, cartItemData, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
+		.post(
+			`/order/decrement-quantity`,
+			{ productId: id },
+			{
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			}
+		)
 		.then((response) => response.data)
 		.catch((error) => {
 			console.error(error);
@@ -151,9 +161,9 @@ export function decrementItemQty(id, cartItemData, accessToken) {
 
 export function removeFromCart(id, accessToken) {
 	return api
-		.delete(
+		.post(
 			`/order/remove-from-cart/`,
-			{ id },
+			{ productId: id },
 			{
 				headers: {
 					Authorization: `Bearer ${accessToken}`,

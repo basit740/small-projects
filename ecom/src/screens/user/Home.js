@@ -4,55 +4,40 @@ import { Container, Row, Col, Card, Button, Carousel } from 'react-bootstrap';
 import classes from '../../styles/home.module.css';
 
 import { getAllProducts } from '../../api/product';
+import { addToCart, getCartItems } from '../../api/order';
+
+import { saveCart } from '../../store/reducers/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
 	const [products, setProducts] = useState([]);
 	const [featuredProducts, setFeaturedProducts] = useState([]);
 
-	// const products = [
-	// 	{
-	// 		id: 1,
-	// 		name: 'Product 1',
-	// 		price: '$99.99',
-	// 		imageUrl:
-	// 			'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		name: 'Product 2',
-	// 		price: '$59.99',
-	// 		imageUrl:
-	// 			'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		name: 'Product 3',
-	// 		price: '$29.99',
-	// 		imageUrl:
-	// 			'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-	// 	},
-	// ];
+	const dispatch = useDispatch();
 
-	// const featuredProducts = [
-	// 	{
-	// 		id: 1,
-	// 		name: 'Featured Product 1',
-	// 		imageUrl:
-	// 			'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		name: 'Featured Product 2',
-	// 		imageUrl:
-	// 			'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		name: 'Featured Product 3',
-	// 		imageUrl:
-	// 			'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80',
-	// 	},
-	// ];
+	const addToCartHandler = async (id) => {
+		if (localStorage.getItem('token') === null) {
+			window.location.href = '/login';
+		}
+
+		const response = await addToCart(
+			{
+				productId: id,
+				quantity: 1,
+			},
+			localStorage.getItem('token')
+		);
+
+		// get Cart
+
+		const serverCart = await getCartItems(localStorage.getItem('token'));
+
+		dispatch(
+			saveCart({
+				cart: serverCart,
+			})
+		);
+	};
 
 	useEffect(() => {
 		async function fetchData() {
@@ -114,7 +99,12 @@ const Home = () => {
 									<Card.Body>
 										<Card.Title>{product.title}</Card.Title>
 										<Card.Text>${product.price}</Card.Text>
-										<Button variant='primary'>Add to Cart</Button>
+										<Button
+											variant='primary'
+											onClick={() => addToCartHandler(product.id)}
+										>
+											Add to Cart
+										</Button>
 									</Card.Body>
 								</Card>
 							</Col>

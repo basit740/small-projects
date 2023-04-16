@@ -44,9 +44,9 @@ export function createProduct(productData, accessToken) {
 		});
 }
 
-export function updateProduct(id, productData, accessToken) {
+export function updateProduct(productData, accessToken) {
 	return api
-		.put(`/product/${id}`, productData, {
+		.put(`/product`, productData, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},

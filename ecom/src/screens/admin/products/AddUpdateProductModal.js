@@ -57,7 +57,9 @@ const AddUpdateProductModal = ({
 		formData.append('title', productTitle);
 		formData.append('description', productDescription);
 		formData.append('price', productPrice);
+
 		formData.append('categoryId', selectedCategory);
+
 		formData.append('subcategoryId', subcategoryId);
 		if (productImage) {
 			formData.append('image', productImage);

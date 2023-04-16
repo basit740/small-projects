@@ -20,11 +20,11 @@ export const authSlice = createSlice({
 		login: (state, action) => {
 			localStorage.setItem('user', JSON.stringify(action.payload.user));
 			localStorage.setItem('token', action.payload.token);
+
 			state.user = action.payload.user;
 		},
 		logout: (state) => {
-			localStorage.removeItem('user');
-			localStorage.removeItem('token');
+			localStorage.clear();
 			state.user = null;
 		},
 	},
