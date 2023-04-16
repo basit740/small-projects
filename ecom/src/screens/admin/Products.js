@@ -22,6 +22,8 @@ import {
 	deleteProduct,
 } from '../../api/product';
 
+import { getCategories, getSubcategories } from '../../api/category';
+
 const Products = () => {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -31,8 +33,16 @@ const Products = () => {
 	const [productToUpdate, setProductToUpdate] = useState(null);
 
 	const [currentPage, setCurrentPage] = useState(1);
-	const [limit, setLimit] = useState(1);
+	const [limit, setLimit] = useState(15);
 	const [totalProducts, setTotalProducts] = useState(0);
+
+	// categores and subcategories
+
+	const [categories, setCategories] = useState([]);
+	const [subCategories, setSubcategories] = useState([]);
+
+	// for useEffect trigger
+	const [productsChanged, setProductsChanged] = useState(false);
 
 	// helper functions
 
@@ -41,6 +51,8 @@ const Products = () => {
 			newProduct,
 			localStorage.getItem('token')
 		);
+
+		setProductsChanged(!productsChanged, createdProduct);
 		setProducts([...products, createdProduct]);
 	};
 
@@ -99,6 +111,13 @@ const Products = () => {
 		async function fetchData() {
 			try {
 				const fetchedProducts = await getProducts(currentPage, limit);
+
+				const fetchedCategories = await getCategories();
+				const fetchedSubcategories = await getSubcategories();
+
+				setCategories(fetchedCategories);
+				setSubcategories(fetchedSubcategories);
+
 				setProducts(fetchedProducts.rows);
 				setTotalProducts(fetchedProducts.count);
 				setLoading(false);
@@ -108,7 +127,7 @@ const Products = () => {
 		}
 
 		fetchData();
-	}, [currentPage, limit]);
+	}, [currentPage, limit, productsChanged]);
 
 	// Pagination here
 	const handleNextPage = () => {
@@ -158,7 +177,7 @@ const Products = () => {
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Product Image</th>
 								<th>Title</th>
 								<th>Description</th>
 								<th>Price</th>
@@ -174,7 +193,19 @@ const Products = () => {
 							) : (
 								products.map((product) => (
 									<tr key={product.id}>
-										<td>{product.id}</td>
+										<td>
+											<img
+												style={{
+													width: '100%',
+													height: '50px',
+													objectFit: 'cover',
+												}}
+												alt={`${product.title}`}
+												src={
+													process.env.REACT_APP_API_URL + '/' + product.imageURL
+												}
+											/>
+										</td>
 										<td>{product.title}</td>
 										<td>{product.description}</td>
 										<td>{product.price}</td>
@@ -220,17 +251,21 @@ const Products = () => {
 					/>
 				</Col>
 			</Row>
-			{/* <AddUpdateProductModal
+			<AddUpdateProductModal
 				show={showAddModal}
 				handleClose={handleCloseAddModal}
 				onSubmit={handleCreateProduct}
+				categories={categories}
+				subcategories={subCategories}
 			/>
 			<AddUpdateProductModal
 				show={showUpdateModal}
 				handleClose={handleCloseUpdateModal}
 				onSubmit={handleUpdateProduct}
 				productToUpdate={productToUpdate}
-			/> */}
+				categories={categories}
+				subcategories={subCategories}
+			/>
 		</Container>
 	);
 };

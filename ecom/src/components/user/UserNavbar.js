@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,8 @@ const UserNavbar = () => {
 	const auth = useSelector((state) => state.auth);
 	const navigate = useNavigate();
 
+	const [isSticky, setIsSticky] = useState(false);
+
 	const logoutHandler = (e) => {
 		e.preventDefault();
 		dispatch(logout());
@@ -20,8 +22,29 @@ const UserNavbar = () => {
 		e.preventDefault();
 		navigate('/login');
 	};
+
+	const handleScroll = () => {
+		if (window.pageYOffset > 60) {
+			setIsSticky(true);
+		} else {
+			setIsSticky(false);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
 	return (
-		<Navbar bg='primary' variant='dark' expand='lg'>
+		<Navbar
+			bg='primary'
+			variant='dark'
+			expand='lg'
+			className={isSticky ? 'sticky-navbar' : ''}
+		>
 			<Container>
 				<Navbar.Brand href='/'>My E-commerce</Navbar.Brand>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />

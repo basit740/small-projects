@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	margin-top: 56px;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
@@ -19,4 +20,13 @@ code {
 
 .mr-auto {
 	margin-right: auto;
+}
+
+.sticky-navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+	transition: top 0.3s;
+	background-color: #0d6efd; /* Add the background color to match the navbar */
 }

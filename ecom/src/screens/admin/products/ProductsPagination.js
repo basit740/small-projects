@@ -8,7 +8,7 @@ const ProductsPagination = ({
 	limit,
 	setLimit,
 }) => {
-	const limits = [1, 2, 5, 10, 15, 20, 25, 50];
+	const limits = [10, 15, 20, 25, 50];
 
 	const renderLimitItems = () => {
 		return limits.map((item) => (

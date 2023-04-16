@@ -10,6 +10,16 @@ export function getProducts(pageNumber, limit) {
 		});
 }
 
+export function getAllProducts() {
+	return api
+		.get(`/product/all`)
+		.then((response) => response.data)
+		.catch((error) => {
+			console.error(error);
+			throw error;
+		});
+}
+
 export function getProduct(id) {
 	return api
 		.get(`/product/${id}`)
