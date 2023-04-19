@@ -43,14 +43,6 @@ const UserNavbar = () => {
 		}
 	};
 
-	// useEffect(() => {
-	// 	window.addEventListener('scroll', handleScroll);
-	// 	return () => {
-	// 		window.removeEventListener('scroll', handleScroll);
-	// 	};
-	// 	console.log('Dispatching fetchCartItems action');
-	// 	dispatch(fetchCartItems());
-	// }, [dispatch]);
 
 	useEffect(() => {
 		dispatch(fetchCartItems());

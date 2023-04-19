@@ -16,7 +16,6 @@ export const fetchCartItems = createAsyncThunk(
 			const token = localStorage.getItem('token');
 			if (!token) return rejectWithValue();
 			const initialCart = await getCartItems(token);
-
 			return initialCart;
 		} catch (error) {
 			return rejectWithValue();

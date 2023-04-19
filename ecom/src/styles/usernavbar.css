@@ -1,0 +1,22 @@
+
+.badge-transition-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.badge-transition-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.badge-transition-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.badge-transition-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
